@@ -1,0 +1,36 @@
+<div>
+    {{#if isAdmin}}
+        <h1>Bienvenido Admin {{userName}}</h1>
+    {{else}}
+        <h1>Bienvenido Usuario {{userName}}</h1>
+    {{/if}}
+
+    {{#if payload.length}} <!-- Verificar si hay productos en payload -->
+        <h2>Lista de Productos: </h2>
+        <div id="products-add">
+            <ul>
+                {{#each payload}} <!-- Iterar sobre los productos en payload -->
+                    <li>
+                        <a href="/products/{{this._id}}">{{this.title}}</a>
+                        <p>Producto: {{this.title}}</p>
+                        <p>Descripción: {{this.description}}</p>
+                        <p>Precio: {{this.price}}</p>
+                        <p>Categoría: {{this.category}}</p>
+                        <button>Agregar al carrito</button>
+                    </li>
+                {{/each}}
+            </ul>
+            <div>
+                {{#if products.hasPrevPage}}
+                    <a href="/products?page={{products.prevPage}}">Anterior</a>
+                {{/if}}
+                <span>Página {{products.page}} de {{products.totalPages}}</span>
+                {{#if products.hasNextPage}}
+                    <a href="/products?page={{products.nextPage}}">Siguiente</a>
+                {{/if}}
+            </div>
+        </div>
+    {{else}}
+        <p>No hay productos disponibles.</p>
+    {{/if}}
+</div>
